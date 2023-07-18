@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Users;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,7 +18,7 @@ class UsersType extends AbstractType
             ->add('password')
             ->add('prenom')
             ->add('nom')
-            ->add('societe')
+            // ->add(SocieteType::class, 'societe')
         ;
     }
 

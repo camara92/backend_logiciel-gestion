@@ -72,4 +72,10 @@ class Societe
 
         return $this;
     }
+    public function __toString()
+    {
+        return $this->getName();
+        // number_format pour mettre des virgules et aussi pour separer les unités 
+
+    }
 }

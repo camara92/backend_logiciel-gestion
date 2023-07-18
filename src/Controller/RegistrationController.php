@@ -17,17 +17,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager,?Societe $societe, SocieteRepository $societeRepo): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $user = new Users();
-        $societe = new Societe(); 
-        $usersociete= $societeRepo->findAll();
-        // dd($usersociete);
-     
-       
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $user->setPassword(
@@ -36,20 +30,13 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-           
-
             $entityManager->persist($user);
             $entityManager->flush();
             // do anything else you need here, like send an email
-
             return $this->redirectToRoute('app_home');
         }
-
-        return $this->render('registration/register.html.twig', [
-           
+        return $this->render('registration/register.html.twig', [  
         'registrationForm' => $form->createView(),
-      
-           
         ]);
     }
 }

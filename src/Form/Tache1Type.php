@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Tache;
+use App\Entity\Users;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,7 +20,14 @@ class Tache1Type extends AbstractType
             ->add('dateLivraison')
             ->add('dateComplete')
             ->add('etat')
-            ->add('user')
+           
+            ->add('user', EntityType::class, [
+                'label'=>'utilisateur', 
+                'required'=>true, 
+                'class'=>Users::class, 
+                'multiple'=>false, 
+                'expanded'=>true
+            ])
         ;
     }
 

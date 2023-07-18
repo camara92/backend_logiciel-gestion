@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Societe;
 use App\Entity\Users;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -20,6 +22,21 @@ class RegistrationFormType extends AbstractType
             ->add('prenom')
             ->add('nom')
             ->add('email')
+            // ->add('societe', 
+            // SocieteType::class,  [
+            //     'label'=>'Votre société', 
+            //     'attr'=>[
+            //         'placeholder'=>'Sélectionner votre société'
+        
+            //     ]
+            // ])
+            ->add('societe', EntityType::class, [
+                'label'=>'Choisissez votre société', 
+                'required'=>true, 
+                'class'=>Societe::class, 
+                'multiple'=>false, 
+                'expanded'=>true
+            ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
